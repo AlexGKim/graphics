@@ -40,20 +40,20 @@
 \coordinate (S1) at (1.8, 5.5);
 \coordinate (S2) at (1.8, 3.0);
 
-\foreach \r/\op in {0.25/15, 0.15/30, 0.08/60}{
+\foreach \r/\op in {0.20/15, 0.12/30, 0.06/60}{
     \fill[starglow, opacity=\op] (S1) circle (\r);
 }
-\fill[white] (S1) circle (0.05);
+\fill[white] (S1) circle (0.04);
 \foreach \ang in {0,45,90,135}{
     \draw[white, line width=0.6pt, opacity=0.8]
         ($(S1)+(\ang:0.06)$) -- ($(S1)+(\ang:0.20)$);
 }
 \node[text=source1col, font=\small\bfseries, left=2pt] at (S1) {Source 1};
 
-\foreach \r/\op in {0.25/15, 0.15/30, 0.08/60}{
+\foreach \r/\op in {0.20/15, 0.12/30, 0.06/60}{
     \fill[starglow, opacity=\op] (S2) circle (\r);
 }
-\fill[white] (S2) circle (0.05);
+\fill[white] (S2) circle (0.04);
 \foreach \ang in {0,45,90,135}{
     \draw[white, line width=0.6pt, opacity=0.8]
         ($(S2)+(\ang:0.06)$) -- ($(S2)+(\ang:0.20)$);
@@ -153,45 +153,45 @@
 \node[text=axiscol, font=\scriptsize] at ($(HIST)+(4.2,-0.1)$) {$\tau$};
 \node[text=axiscol, font=\scriptsize, rotate=90] at ($(HIST)+(-0.3, 0.7)$) {$H(\tau)$};
 
-% Poisson baseline: exponential decay starting at τ=0
+% Uncorrelated baseline: exponential decay, asymptoting to 0
 \draw[axiscol, line width=1.0pt, dashed]
     ($(HIST)+(0.0, 0.675)$)
-    .. controls ($(HIST)+(1.0, 0.58)$) and ($(HIST)+(2.5, 0.52)$) ..
-    ($(HIST)+(3.8, 0.50)$);
-\node[text=axiscol, font=\scriptsize, left=1pt] at ($(HIST)+(3.8, 0.52)$) {Poisson};
+    .. controls ($(HIST)+(1.0, 0.55)$) and ($(HIST)+(2.5, 0.25)$) ..
+    ($(HIST)+(3.8, 0.01)$);
+\node[text=axiscol, font=\scriptsize, left=1pt] at ($(HIST)+(3.8, 0.52)$) {uncorrelated};
 
 % Histogram bars for τ>=0, decaying even faster toward Poisson baseline
 \fill[histcol, opacity=0.8]
     ($(HIST)+(0.0,-0.1)$) rectangle ($(HIST)+(0.3, 1.35)$);
 \fill[histcol, opacity=0.75]
-    ($(HIST)+(0.3,-0.1)$) rectangle ($(HIST)+(0.6, 0.90)$);
+    ($(HIST)+(0.3,-0.1)$) rectangle ($(HIST)+(0.6, 0.80)$);
 \fill[histcol, opacity=0.65]
-    ($(HIST)+(0.6,-0.1)$) rectangle ($(HIST)+(0.9, 0.70)$);
+    ($(HIST)+(0.6,-0.1)$) rectangle ($(HIST)+(0.9, 0.55)$);
 \fill[histcol, opacity=0.55]
-    ($(HIST)+(0.9,-0.1)$) rectangle ($(HIST)+(1.2, 0.60)$);
+    ($(HIST)+(0.9,-0.1)$) rectangle ($(HIST)+(1.2, 0.50)$);
 \fill[histcol, opacity=0.48]
-    ($(HIST)+(1.2,-0.1)$) rectangle ($(HIST)+(1.5, 0.55)$);
+    ($(HIST)+(1.2,-0.1)$) rectangle ($(HIST)+(1.5, 0.42)$);
 \fill[histcol, opacity=0.43]
-    ($(HIST)+(1.5,-0.1)$) rectangle ($(HIST)+(1.8, 0.52)$);
+    ($(HIST)+(1.5,-0.1)$) rectangle ($(HIST)+(1.8, 0.35)$);
 \fill[histcol, opacity=0.40]
-    ($(HIST)+(1.8,-0.1)$) rectangle ($(HIST)+(2.1, 0.48)$);
+    ($(HIST)+(1.8,-0.1)$) rectangle ($(HIST)+(2.1, 0.27)$);
 \fill[histcol, opacity=0.38]
-    ($(HIST)+(2.1,-0.1)$) rectangle ($(HIST)+(2.4, 0.35)$);
+    ($(HIST)+(2.1,-0.1)$) rectangle ($(HIST)+(2.4, 0.20)$);
 \fill[histcol, opacity=0.36]
-    ($(HIST)+(2.4,-0.1)$) rectangle ($(HIST)+(2.7, 0.25)$);
+    ($(HIST)+(2.4,-0.1)$) rectangle ($(HIST)+(2.7, 0.13)$);
 \fill[histcol, opacity=0.35]
-    ($(HIST)+(2.7,-0.1)$) rectangle ($(HIST)+(3.0, 0.15)$);
+    ($(HIST)+(2.7,-0.1)$) rectangle ($(HIST)+(3.0, 0.08)$);
 \fill[histcol, opacity=0.35]
-    ($(HIST)+(3.0,-0.1)$) rectangle ($(HIST)+(3.3, 0.08)$);
+    ($(HIST)+(3.0,-0.1)$) rectangle ($(HIST)+(3.3, 0.04)$);
 \fill[histcol, opacity=0.35]
-    ($(HIST)+(3.3,-0.1)$) rectangle ($(HIST)+(3.6, 0.04)$);
+    ($(HIST)+(3.3,-0.1)$) rectangle ($(HIST)+(3.6, 0.02)$);
 
 % τ=0 label
 \node[text=axiscol, font=\scriptsize] at ($(HIST)+(0.0,-0.3)$) {$0$};
 
 % Caption
 \node[text=labelcol, font=\small, align=center] at (8.0, 0.55)
-    {$g^{(2)}(\tau) = H(t_1-t_2)\,/\,H_{\text{Poisson}}$ \quad two detectors give access to $\tau = 0$};
+    {$g^{(2)}(\tau) = H(t_1-t_2)\,/\,H_{\text{uncorr}}$ \quad two detectors give access to $\tau = 0$};
 
 \end{tikzpicture}
 \end{document}
