@@ -35,10 +35,10 @@
 \coordinate (S2) at (2.0, 3.0);
 
 % Glow halos S1
-\foreach \r/\op in {0.25/15, 0.15/30, 0.08/60}{
+\foreach \r/\op in {0.20/15, 0.12/30, 0.06/60}{
     \fill[starglow, opacity=\op] (S1) circle (\r);
 }
-\fill[white] (S1) circle (0.05);
+\fill[white] (S1) circle (0.04);
 \foreach \ang in {0,45,90,135}{
     \draw[white, line width=0.6pt, opacity=0.8]
         ($(S1)+(\ang:0.06)$) -- ($(S1)+(\ang:0.20)$);
@@ -46,10 +46,10 @@
 \node[text=source1col, font=\small\bfseries, left=6pt] at (S1) {Source 1};
 
 % Glow halos S2
-\foreach \r/\op in {0.25/15, 0.15/30, 0.08/60}{
+\foreach \r/\op in {0.20/15, 0.12/30, 0.06/60}{
     \fill[starglow, opacity=\op] (S2) circle (\r);
 }
-\fill[white] (S2) circle (0.05);
+\fill[white] (S2) circle (0.04);
 \foreach \ang in {0,45,90,135}{
     \draw[white, line width=0.6pt, opacity=0.8]
         ($(S2)+(\ang:0.06)$) -- ($(S2)+(\ang:0.20)$);
