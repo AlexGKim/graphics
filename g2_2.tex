@@ -103,19 +103,17 @@
 \draw[photoncol, line width=0.9pt, opacity=0.9]
     ($(S2)+(0.1, 0)$) -- ($(TEL2)+(0.0,-0.55)$);
 
-% Photon bullets near telescope 1
-\fill[photoncol] (9.0, 5.8) circle (0.10);
-\fill[photoncol] (9.5, 5.5) circle (0.10);
-\fill[photoncol] (9.0, 5.2) circle (0.10);
+% Photon bullets — distributed uniformly between telescopes with random x scatter
+\fill[photoncol] (9.3, 5.5) circle (0.10);
+\fill[photoncol] (9.1, 5.0) circle (0.10);
+\fill[photoncol] (9.7, 4.5) circle (0.10);
+\fill[photoncol] (8.9, 4.0) circle (0.10);
+\fill[photoncol] (9.5, 3.5) circle (0.10);
+\fill[photoncol] (9.2, 3.0) circle (0.10);
 
-% Photon bullets near telescope 2
-\fill[photoncol] (9.0, 3.3) circle (0.10);
-\fill[photoncol] (9.5, 3.0) circle (0.10);
-\fill[photoncol] (9.0, 2.7) circle (0.10);
-
-% gamma labels on select bullets
-\node[text=photoncol, font=\small] at (8.4, 5.8) {$\gamma$};
-\node[text=photoncol, font=\small] at (8.4, 3.3) {$\gamma$};
+% gamma labels on top and bottom bullets
+\node[text=photoncol, font=\small] at (8.3, 5.5) {$\gamma$};
+\node[text=photoncol, font=\small] at (8.3, 3.0) {$\gamma$};
 
 % ════════════════════════════════════════════════════════
 % 3. TWO TELESCOPES (RIGHT SIDE, facing left)
@@ -156,31 +154,16 @@
 \node[text=white, font=\small, right=2pt] at (11.8, 4.25) {$B$};
 
 % ════════════════════════════════════════════════════════
-% 4. INTENSITY TIME SERIES (showing beating pattern)
+% 4. g^(2)(\tau,B) EQUATION (showing angular separation dependence)
 % ════════════════════════════════════════════════════════
-% Frame for intensity traces
-\draw[labelcol, line width=1pt] (4.5, 0.5) rectangle (9.5, 2.0);
+% Frame for equation
+\draw[labelcol, line width=1pt] (1.5, 0.3) rectangle (14.5, 2.0);
 
-% Time axis label
-\node[text=labelcol, font=\small] at (4.2, 0.75) {$I(t)$};
-\node[text=labelcol, font=\small] at (9.8, 0.3) {$t$};
+% Main HBT equation
+\node[text=labelcol, font=\small, align=center] at (8.0, 1.5) {$g^{(2)}(\tau,B) = 1 + \left|\mathrm{sinc}\left(\frac{\pi B \theta_s}{\lambda}\right)\right|^2 \cos^2(\omega\tau)$};
 
-% Intensity trace for TEL1 (label)
-\node[text=source1col, font=\small] at (4.0, 1.75) {TEL1:};
-
-% Oscillating intensity at TEL1 (simple sine-like pattern)
-\draw[source1col, line width=1.2pt]
-    (5.0, 1.5) -- (5.5, 1.8) -- (6.0, 1.5) -- (6.5, 1.2) -- (7.0, 1.5) -- (7.5, 1.8) -- (8.0, 1.5) -- (8.5, 1.2) -- (9.0, 1.5);
-
-% Intensity trace for TEL2 (label)
-\node[text=source2col, font=\small] at (4.0, 0.9) {TEL2:};
-
-% Oscillating intensity at TEL2 (slightly out of phase, showing decorrelation)
-\draw[source2col, line width=1.2pt]
-    (5.0, 0.7) -- (5.3, 0.9) -- (5.6, 0.7) -- (5.9, 0.5) -- (6.3, 0.7) -- (6.7, 1.0) -- (7.0, 0.7) -- (7.4, 0.4) -- (7.8, 0.7) -- (8.2, 1.0) -- (8.6, 0.65) -- (9.0, 0.7);
-
-% Annotation: correlation depends on angular separation
-\node[text=labelcol, font=\tiny, align=center] at (7.0, 0.1) {Angular separation $\theta_s$ determines\\correlation timescale $\tau_{\text{coh}} \propto 1/\theta_s$};
+% Annotation: coupling to angular separation
+\node[text=labelcol, font=\tiny, align=center] at (8.0, 0.6) {Visibility and oscillation frequency depend on $\theta_s$};
 
 \end{tikzpicture}
 \end{document}
