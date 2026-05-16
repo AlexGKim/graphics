@@ -1,0 +1,197 @@
+\documentclass[tikz, border=10pt]{standalone}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing, arrows.meta, calc, backgrounds}
+
+\definecolor{navybg}{RGB}{13,27,42}
+\definecolor{source1col}{RGB}{0,220,255}
+\definecolor{source2col}{RGB}{255,165,0}
+\definecolor{photoncol}{RGB}{255,215,0}
+\definecolor{starglow}{RGB}{255,255,200}
+\definecolor{labelcol}{RGB}{220,220,220}
+\definecolor{plotbg}{RGB}{25,40,60}
+\definecolor{axiscol}{RGB}{180,180,180}
+\definecolor{histcol}{RGB}{100,180,255}
+\definecolor{bscol}{RGB}{180,255,180}
+
+\begin{document}
+\begin{tikzpicture}[
+    background rectangle/.style={fill=navybg},
+    show background rectangle,
+    arr/.style={-{Stealth[length=6pt]}, line width=1.2pt},
+    arrthin/.style={-{Stealth[length=4pt]}, line width=0.8pt},
+    mybox/.style={draw=labelcol, fill=plotbg, rounded corners=4pt,
+                  line width=1pt, text=labelcol, font=\small,
+                  inner sep=5pt, align=center},
+]
+
+\path[use as bounding box] (0,0) rectangle (16,9);
+
+% ════════════════════════════════════════════════════════
+% 0. TITLE
+% ════════════════════════════════════════════════════════
+\node[text=labelcol, font=\large\bfseries] at (8.0, 8.3)
+    {Hanbury Brown \& Twiss Effect \textemdash\ Single Telescope
+     \textemdash\ $g^{(2)}(\tau)$};
+
+% ════════════════════════════════════════════════════════
+% 1. SOURCE + TELESCOPE
+% ════════════════════════════════════════════════════════
+\coordinate (S1) at (1.2, 5.5);
+\coordinate (S2) at (1.2, 3.0);
+
+\foreach \r/\op in {0.25/15, 0.15/30, 0.08/60}{
+    \fill[starglow, opacity=\op] (S1) circle (\r);
+}
+\fill[white] (S1) circle (0.05);
+\foreach \ang in {0,45,90,135}{
+    \draw[white, line width=0.6pt, opacity=0.8]
+        ($(S1)+(\ang:0.06)$) -- ($(S1)+(\ang:0.20)$);
+}
+\node[text=source1col, font=\small\bfseries, left=2pt] at (S1) {Source 1};
+
+\foreach \r/\op in {0.25/15, 0.15/30, 0.08/60}{
+    \fill[starglow, opacity=\op] (S2) circle (\r);
+}
+\fill[white] (S2) circle (0.05);
+\foreach \ang in {0,45,90,135}{
+    \draw[white, line width=0.6pt, opacity=0.8]
+        ($(S2)+(\ang:0.06)$) -- ($(S2)+(\ang:0.20)$);
+}
+\node[text=source2col, font=\small\bfseries, left=2pt] at (S2) {Source 2};
+
+\coordinate (TEL) at (4.5, 4.25);
+
+\draw[photoncol, line width=0.9pt, opacity=0.7]
+    ($(S1)+(0.1, 0)$) -- ($(TEL)+(0.0, 0.55)$);
+\draw[photoncol, line width=0.9pt, opacity=0.7]
+    ($(S1)+(0.1, 0)$) -- ($(TEL)+(0.0,-0.55)$);
+\draw[photoncol, line width=0.9pt, opacity=0.7]
+    ($(S2)+(0.1, 0)$) -- ($(TEL)+(0.0, 0.55)$);
+\draw[photoncol, line width=0.9pt, opacity=0.7]
+    ($(S2)+(0.1, 0)$) -- ($(TEL)+(0.0,-0.55)$);
+
+\fill[photoncol] (3.0, 4.5) circle (0.09);
+\fill[photoncol] (3.5, 4.0) circle (0.09);
+\fill[photoncol] (3.9, 4.6) circle (0.09);
+\node[text=photoncol, font=\scriptsize] at (2.6, 4.5) {$\gamma$};
+
+\draw[labelcol, line width=2pt]
+    ($(TEL)+(0.0, 0.7)$)
+    .. controls ($(TEL)+(0.5, 0.2)$) and ($(TEL)+(0.5,-0.2)$) ..
+    ($(TEL)+(0.0,-0.7)$);
+\draw[labelcol, line width=1.8pt]
+    ($(TEL)+(0.0, 0.7)$) -- ($(TEL)+(0.0,-0.7)$);
+\draw[labelcol, line width=1.0pt]
+    ($(TEL)+(0.0, 0.0)$) -- ($(TEL)+(0.5, 0.0)$);
+\node[text=labelcol, font=\small\bfseries, above=4pt] at ($(TEL)+(0.25, 0.7)$) {Telescope};
+
+% ════════════════════════════════════════════════════════
+% 2. BEAM SPLITTER
+% ════════════════════════════════════════════════════════
+\coordinate (BS) at (6.5, 4.25);
+
+% Incoming beam from telescope
+\draw[arr, photoncol, opacity=0.8] ($(TEL)+(0.5, 0.0)$) -- ($(BS)+(-0.5, 0.0)$);
+
+% Beam splitter box
+\draw[bscol, fill=plotbg, line width=1.2pt]
+    ($(BS)+(-0.35,-0.35)$) rectangle ($(BS)+(0.35, 0.35)$);
+\draw[bscol, line width=1.2pt]
+    ($(BS)+(-0.35,-0.35)$) -- ($(BS)+(0.35, 0.35)$);
+\node[text=bscol, font=\scriptsize, below=10pt] at (BS) {BS};
+
+% Output beam 1 (transmitted, horizontal)
+\draw[arr, photoncol, opacity=0.8] ($(BS)+(0.35, 0.0)$) -- ($(BS)+(1.5, 0.0)$);
+
+% Output beam 2 (reflected, vertical up)
+\draw[arr, photoncol, opacity=0.8] ($(BS)+(0.0, 0.35)$) -- ($(BS)+(0.0, 1.5)$);
+
+% ════════════════════════════════════════════════════════
+% 3. TWO DETECTORS
+% ════════════════════════════════════════════════════════
+\coordinate (DET1) at (8.35, 4.25);
+\coordinate (DET2) at (6.5, 6.1);
+
+% Detector 1
+\draw[labelcol, fill=plotbg, rounded corners=3pt, line width=1pt]
+    ($(DET1)+(-0.3,-0.35)$) rectangle ($(DET1)+(0.3, 0.35)$);
+\node[text=labelcol, font=\scriptsize] at (DET1) {Det 1};
+
+% Detector 2
+\draw[labelcol, fill=plotbg, rounded corners=3pt, line width=1pt]
+    ($(DET2)+(-0.35,-0.3)$) rectangle ($(DET2)+(0.35, 0.3)$);
+\node[text=labelcol, font=\scriptsize] at (DET2) {Det 2};
+
+% ════════════════════════════════════════════════════════
+% 4. CORRELATOR + TIME DIFFERENCE
+% ════════════════════════════════════════════════════════
+\coordinate (CORR) at (10.5, 5.5);
+
+% Lines from detectors to correlator
+\draw[arr, labelcol]
+    ($(DET1)+(0.3, 0.0)$) -- ($(CORR)+(-0.5,-0.5)$);
+\draw[arr, labelcol]
+    ($(DET2)+(0.35, 0.0)$) -- ($(CORR)+(-0.5, 0.3)$);
+
+% Correlator box
+\draw[labelcol, fill=plotbg, rounded corners=4pt, line width=1pt]
+    ($(CORR)+(-0.5,-0.6)$) rectangle ($(CORR)+(0.5, 0.6)$);
+\node[text=labelcol, font=\scriptsize, align=center] at (CORR) {Record\\$t_1 - t_2$};
+
+% ════════════════════════════════════════════════════════
+% 5. g^(2)(τ) HISTOGRAM
+% ════════════════════════════════════════════════════════
+\coordinate (HIST) at (11.5, 2.5);
+
+% Arrow from correlator to histogram
+\draw[arr, labelcol] ($(CORR)+(0.0,-0.6)$) -- ($(HIST)+(0.25, 1.4)$);
+
+% Axes
+\draw[arr, axiscol] ($(HIST)+(0,-0.1)$) -- ($(HIST)+(4.0,-0.1)$);
+\draw[arr, axiscol] ($(HIST)+(0,-0.1)$) -- ($(HIST)+(0, 1.5)$);
+\node[text=axiscol, font=\scriptsize] at ($(HIST)+(4.2,-0.1)$) {$\tau$};
+\node[text=axiscol, font=\scriptsize, rotate=90] at ($(HIST)+(-0.3, 0.7)$) {$H(\tau)$};
+
+% Poisson baseline: exponential decay starting at τ=0
+\draw[axiscol, line width=1.0pt, dashed]
+    ($(HIST)+(0.0, 0.675)$)
+    .. controls ($(HIST)+(1.0, 0.58)$) and ($(HIST)+(2.5, 0.52)$) ..
+    ($(HIST)+(3.8, 0.50)$);
+\node[text=axiscol, font=\scriptsize, left=1pt] at ($(HIST)+(3.8, 0.52)$) {Poisson};
+
+% Histogram bars for τ>=0, decaying faster toward Poisson baseline
+\fill[histcol, opacity=0.8]
+    ($(HIST)+(0.0,-0.1)$) rectangle ($(HIST)+(0.3, 1.35)$);
+\fill[histcol, opacity=0.75]
+    ($(HIST)+(0.3,-0.1)$) rectangle ($(HIST)+(0.6, 1.0)$);
+\fill[histcol, opacity=0.65]
+    ($(HIST)+(0.6,-0.1)$) rectangle ($(HIST)+(0.9, 0.8)$);
+\fill[histcol, opacity=0.55]
+    ($(HIST)+(0.9,-0.1)$) rectangle ($(HIST)+(1.2, 0.7)$);
+\fill[histcol, opacity=0.48]
+    ($(HIST)+(1.2,-0.1)$) rectangle ($(HIST)+(1.5, 0.63)$);
+\fill[histcol, opacity=0.43]
+    ($(HIST)+(1.5,-0.1)$) rectangle ($(HIST)+(1.8, 0.58)$);
+\fill[histcol, opacity=0.40]
+    ($(HIST)+(1.8,-0.1)$) rectangle ($(HIST)+(2.1, 0.55)$);
+\fill[histcol, opacity=0.38]
+    ($(HIST)+(2.1,-0.1)$) rectangle ($(HIST)+(2.4, 0.52)$);
+\fill[histcol, opacity=0.36]
+    ($(HIST)+(2.4,-0.1)$) rectangle ($(HIST)+(2.7, 0.51)$);
+\fill[histcol, opacity=0.35]
+    ($(HIST)+(2.7,-0.1)$) rectangle ($(HIST)+(3.0, 0.50)$);
+\fill[histcol, opacity=0.35]
+    ($(HIST)+(3.0,-0.1)$) rectangle ($(HIST)+(3.3, 0.50)$);
+\fill[histcol, opacity=0.35]
+    ($(HIST)+(3.3,-0.1)$) rectangle ($(HIST)+(3.6, 0.50)$);
+
+% τ=0 label
+\node[text=axiscol, font=\scriptsize] at ($(HIST)+(0.0,-0.3)$) {$0$};
+
+% Caption
+\node[text=labelcol, font=\small, align=center] at (8.0, 0.55)
+    {$g^{(2)}(\tau) = H(t_1-t_2)\,/\,H_{\text{Poisson}}$ \quad two detectors give access to $\tau = 0$};
+
+\end{tikzpicture}
+\end{document}
