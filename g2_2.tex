@@ -1,0 +1,186 @@
+\documentclass[tikz, border=10pt]{standalone}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing, arrows.meta, calc, backgrounds}
+
+\definecolor{navybg}{RGB}{13,27,42}
+\definecolor{source1col}{RGB}{0,220,255}
+\definecolor{source2col}{RGB}{255,165,0}
+\definecolor{photoncol}{RGB}{255,215,0}
+\definecolor{starglow}{RGB}{255,255,200}
+\definecolor{labelcol}{RGB}{220,220,220}
+\definecolor{plotbg}{RGB}{25,40,60}
+
+\begin{document}
+\begin{tikzpicture}[
+    background rectangle/.style={fill=navybg},
+    show background rectangle,
+    arr/.style={-{Stealth[length=6pt]}, line width=1.2pt},
+    arrthin/.style={-{Stealth[length=4pt]}, line width=0.8pt},
+    mybox/.style={draw=labelcol, fill=plotbg, rounded corners=4pt,
+                  line width=1pt, text=labelcol, font=\small,
+                  inner sep=5pt, align=center},
+]
+
+\path[use as bounding box] (0,0) rectangle (16,9);
+
+% ════════════════════════════════════════════════════════
+% 0. TITLE
+% ════════════════════════════════════════════════════════
+\node[text=labelcol, font=\large\bfseries] at (8.0, 8.3)
+    {Second-Order Coherence \textemdash\ Two Telescopes
+     \textemdash\ $g^{(2)}(\tau,B)$};
+
+% ════════════════════════════════════════════════════════
+% 1. TWO POINT SOURCES (LEFT SIDE)
+% ════════════════════════════════════════════════════════
+\coordinate (S1) at (2.0, 5.5);
+\coordinate (S2) at (2.0, 3.0);
+
+% Glow halos S1
+\foreach \r/\op in {0.25/15, 0.15/30, 0.08/60}{
+    \fill[starglow, opacity=\op] (S1) circle (\r);
+}
+\fill[white] (S1) circle (0.05);
+\foreach \ang in {0,45,90,135}{
+    \draw[white, line width=0.6pt, opacity=0.8]
+        ($(S1)+(\ang:0.06)$) -- ($(S1)+(\ang:0.20)$);
+}
+\node[text=source1col, font=\small\bfseries, left=6pt] at (S1) {Source 1};
+
+% Glow halos S2
+\foreach \r/\op in {0.25/15, 0.15/30, 0.08/60}{
+    \fill[starglow, opacity=\op] (S2) circle (\r);
+}
+\fill[white] (S2) circle (0.05);
+\foreach \ang in {0,45,90,135}{
+    \draw[white, line width=0.6pt, opacity=0.8]
+        ($(S2)+(\ang:0.06)$) -- ($(S2)+(\ang:0.20)$);
+}
+\node[text=source2col, font=\small\bfseries, left=6pt] at (S2) {Source 2};
+
+% Angular separation brace
+\draw[white, line width=0.8pt]
+    ($(S1)+(0.35, 0)$) -- ($(S1)+(0.55, 0)$)
+    -- ($(S2)+(0.55, 0)$) -- ($(S2)+(0.35, 0)$);
+\node[text=white, font=\small, right=2pt] at (1.55, 4.0) {$\theta_s$};
+
+% ════════════════════════════════════════════════════════
+% 2. PHOTON BULLETS TO TWO TELESCOPES
+% ════════════════════════════════════════════════════════
+\coordinate (TEL1) at (11.0, 5.5);
+\coordinate (TEL2) at (11.0, 3.0);
+
+% Solid lines from S1 to telescope 1 aperture
+\draw[photoncol, line width=0.9pt, opacity=0.9]
+    ($(S1)+(0.1, 0)$) -- ($(TEL1)+(0.0, 0.55)$);
+\draw[photoncol, line width=0.9pt, opacity=0.9]
+    ($(S1)+(0.1, 0)$) -- ($(TEL1)+(0.0, 0.0)$);
+\draw[photoncol, line width=0.9pt, opacity=0.9]
+    ($(S1)+(0.1, 0)$) -- ($(TEL1)+(0.0,-0.55)$);
+
+% Solid lines from S1 to telescope 2 aperture
+\draw[photoncol, line width=0.9pt, opacity=0.9]
+    ($(S1)+(0.1, 0)$) -- ($(TEL2)+(0.0, 0.55)$);
+\draw[photoncol, line width=0.9pt, opacity=0.9]
+    ($(S1)+(0.1, 0)$) -- ($(TEL2)+(0.0, 0.0)$);
+\draw[photoncol, line width=0.9pt, opacity=0.9]
+    ($(S1)+(0.1, 0)$) -- ($(TEL2)+(0.0,-0.55)$);
+
+% Solid lines from S2 to telescope 1 aperture
+\draw[photoncol, line width=0.9pt, opacity=0.9]
+    ($(S2)+(0.1, 0)$) -- ($(TEL1)+(0.0, 0.55)$);
+\draw[photoncol, line width=0.9pt, opacity=0.9]
+    ($(S2)+(0.1, 0)$) -- ($(TEL1)+(0.0, 0.0)$);
+\draw[photoncol, line width=0.9pt, opacity=0.9]
+    ($(S2)+(0.1, 0)$) -- ($(TEL1)+(0.0,-0.55)$);
+
+% Solid lines from S2 to telescope 2 aperture
+\draw[photoncol, line width=0.9pt, opacity=0.9]
+    ($(S2)+(0.1, 0)$) -- ($(TEL2)+(0.0, 0.55)$);
+\draw[photoncol, line width=0.9pt, opacity=0.9]
+    ($(S2)+(0.1, 0)$) -- ($(TEL2)+(0.0, 0.0)$);
+\draw[photoncol, line width=0.9pt, opacity=0.9]
+    ($(S2)+(0.1, 0)$) -- ($(TEL2)+(0.0,-0.55)$);
+
+% Photon bullets near telescope 1
+\fill[photoncol] (9.0, 5.8) circle (0.10);
+\fill[photoncol] (9.5, 5.5) circle (0.10);
+\fill[photoncol] (9.0, 5.2) circle (0.10);
+
+% Photon bullets near telescope 2
+\fill[photoncol] (9.0, 3.3) circle (0.10);
+\fill[photoncol] (9.5, 3.0) circle (0.10);
+\fill[photoncol] (9.0, 2.7) circle (0.10);
+
+% gamma labels on select bullets
+\node[text=photoncol, font=\small] at (8.4, 5.8) {$\gamma$};
+\node[text=photoncol, font=\small] at (8.4, 3.3) {$\gamma$};
+
+% ════════════════════════════════════════════════════════
+% 3. TWO TELESCOPES (RIGHT SIDE, facing left)
+% ════════════════════════════════════════════════════════
+% Telescope 1 (upper)
+\draw[labelcol, line width=2pt]
+    ($(TEL1)+(0.0,  0.7)$)
+    .. controls ($(TEL1)+(0.5, 0.2)$) and ($(TEL1)+(0.5,-0.2)$) ..
+    ($(TEL1)+(0.0, -0.7)$);
+\draw[labelcol, line width=1.8pt]
+    ($(TEL1)+(0.0, 0.7)$) -- ($(TEL1)+(0.0,-0.7)$);
+\draw[labelcol, line width=1.0pt]
+    ($(TEL1)+(0.0, 0.0)$) -- ($(TEL1)+(0.5, 0.0)$);
+
+\node[text=labelcol, font=\small\bfseries, right=4pt]
+    at ($(TEL1)+(0.5, 0.0)$) {Telescope 1};
+
+% Telescope 2 (lower)
+\draw[labelcol, line width=2pt]
+    ($(TEL2)+(0.0,  0.7)$)
+    .. controls ($(TEL2)+(0.5, 0.2)$) and ($(TEL2)+(0.5,-0.2)$) ..
+    ($(TEL2)+(0.0, -0.7)$);
+\draw[labelcol, line width=1.8pt]
+    ($(TEL2)+(0.0, 0.7)$) -- ($(TEL2)+(0.0,-0.7)$);
+\draw[labelcol, line width=1.0pt]
+    ($(TEL2)+(0.0, 0.0)$) -- ($(TEL2)+(0.5, 0.0)$);
+
+\node[text=labelcol, font=\small\bfseries, right=4pt]
+    at ($(TEL2)+(0.5, 0.0)$) {Telescope 2};
+
+% Baseline B
+\draw[white, line width=0.8pt]
+    ($(TEL1)+(0.7, 0.0)$) -- ($(TEL2)+(0.7, 0.0)$);
+\draw[white, line width=0.6pt]
+    ($(TEL1)+(0.55, 0.0)$) -- ($(TEL1)+(0.85, 0.0)$);
+\draw[white, line width=0.6pt]
+    ($(TEL2)+(0.55, 0.0)$) -- ($(TEL2)+(0.85, 0.0)$);
+\node[text=white, font=\small, right=2pt] at (11.8, 4.25) {$B$};
+
+% ════════════════════════════════════════════════════════
+% 4. INTENSITY TIME SERIES (showing beating pattern)
+% ════════════════════════════════════════════════════════
+% Frame for intensity traces
+\draw[labelcol, line width=1pt] (4.5, 0.5) rectangle (9.5, 2.0);
+
+% Time axis label
+\node[text=labelcol, font=\small] at (4.2, 0.75) {$I(t)$};
+\node[text=labelcol, font=\small] at (9.8, 0.3) {$t$};
+
+% Intensity trace for TEL1 (label)
+\node[text=source1col, font=\small] at (4.0, 1.75) {TEL1:};
+
+% Oscillating intensity at TEL1 (simple sine-like pattern)
+\draw[source1col, line width=1.2pt]
+    (5.0, 1.5) -- (5.5, 1.8) -- (6.0, 1.5) -- (6.5, 1.2) -- (7.0, 1.5) -- (7.5, 1.8) -- (8.0, 1.5) -- (8.5, 1.2) -- (9.0, 1.5);
+
+% Intensity trace for TEL2 (label)
+\node[text=source2col, font=\small] at (4.0, 0.9) {TEL2:};
+
+% Oscillating intensity at TEL2 (slightly out of phase, showing decorrelation)
+\draw[source2col, line width=1.2pt]
+    (5.0, 0.7) -- (5.3, 0.9) -- (5.6, 0.7) -- (5.9, 0.5) -- (6.3, 0.7) -- (6.7, 1.0) -- (7.0, 0.7) -- (7.4, 0.4) -- (7.8, 0.7) -- (8.2, 1.0) -- (8.6, 0.65) -- (9.0, 0.7);
+
+% Annotation: correlation depends on angular separation
+\node[text=labelcol, font=\tiny, align=center] at (7.0, 0.1) {Angular separation $\theta_s$ determines\\correlation timescale $\tau_{\text{coh}} \propto 1/\theta_s$};
+
+\end{tikzpicture}
+\end{document}

@@ -35,32 +35,30 @@
 \coordinate (S2) at (2.0, 3.0);
 
 % Glow halos S1
-\foreach \r/\op in {0.35/15, 0.22/30, 0.12/60}{
+\foreach \r/\op in {0.25/15, 0.15/30, 0.08/60}{
     \fill[starglow, opacity=\op] (S1) circle (\r);
 }
-\fill[white] (S1) circle (0.07);
+\fill[white] (S1) circle (0.05);
 \foreach \ang in {0,45,90,135}{
     \draw[white, line width=0.6pt, opacity=0.8]
-        ($(S1)+(\ang:0.08)$) -- ($(S1)+(\ang:0.28)$);
+        ($(S1)+(\ang:0.06)$) -- ($(S1)+(\ang:0.20)$);
 }
 \node[text=source1col, font=\small\bfseries, left=6pt] at (S1) {Source 1};
 
 % Glow halos S2
-\foreach \r/\op in {0.35/15, 0.22/30, 0.12/60}{
+\foreach \r/\op in {0.25/15, 0.15/30, 0.08/60}{
     \fill[starglow, opacity=\op] (S2) circle (\r);
 }
-\fill[white] (S2) circle (0.07);
+\fill[white] (S2) circle (0.05);
 \foreach \ang in {0,45,90,135}{
     \draw[white, line width=0.6pt, opacity=0.8]
-        ($(S2)+(\ang:0.08)$) -- ($(S2)+(\ang:0.28)$);
+        ($(S2)+(\ang:0.06)$) -- ($(S2)+(\ang:0.20)$);
 }
 \node[text=source2col, font=\small\bfseries, left=6pt] at (S2) {Source 2};
 
-% Angular separation brace
-\draw[white, line width=0.8pt]
-    ($(S1)+(0.35, 0)$) -- ($(S1)+(0.55, 0)$)
-    -- ($(S2)+(0.55, 0)$) -- ($(S2)+(0.35, 0)$);
-\node[text=white, font=\small, right=2pt] at (1.55, 4.0) {$\theta_s$};
+% Absolute angular positions — one label per source, below source labels
+\node[text=source1col, font=\small, left=6pt, below=8pt] at (S1) {$\theta_1$};
+\node[text=source2col, font=\small, left=6pt, below=8pt] at (S2) {$\theta_2$};
 
 % ════════════════════════════════════════════════════════
 % 2. ELECTRIC FIELD WAVEFRONTS FROM SOURCES
