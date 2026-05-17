@@ -148,24 +148,32 @@
 \node[text=labelcol, font=\scriptsize] at (DET2) {Det 2};
 
 % ════════════════════════════════════════════════════════
-% 4. CORRELATOR
+% 4. RECORD BOXES (one per detector, to their right)
 % ════════════════════════════════════════════════════════
-\coordinate (CORR) at (10.0, 4.5);
+\coordinate (REC1) at (9.35, 5.5);
+\coordinate (REC2) at (9.35, 3.5);
 
-\draw[arr, labelcol] ($(DET1)+(0.3, 0.0)$) -- ($(CORR)+(-0.5, 0.5)$);
-\draw[arr, labelcol] ($(DET2)+(0.3, 0.0)$) -- ($(CORR)+(-0.5,-0.5)$);
+% Arrow from Det 1 to Record 1
+\draw[arr, labelcol] ($(DET1)+(0.5, 0.0)$) -- ($(REC1)+(-0.4, 0.0)$);
 
-\draw[labelcol, fill=plotbg, rounded corners=4pt, line width=1pt]
-    ($(CORR)+(-0.5,-0.6)$) rectangle ($(CORR)+(0.5, 0.6)$);
-\node[text=labelcol, font=\scriptsize, align=center] at (CORR) {Record\\$t_1 - t_2$};
+% Record t box 1
+\draw[labelcol, fill=plotbg, rounded corners=3pt, line width=1pt]
+    ($(REC1)+(-0.55,-0.3)$) rectangle ($(REC1)+(0.55, 0.3)$);
+\node[text=labelcol, font=\scriptsize, align=center] at (REC1) {Record\\$t_1$};
+
+% Arrow from Det 2 to Record 2
+\draw[arr, labelcol] ($(DET2)+(0.5, 0.0)$) -- ($(REC2)+(-0.4, 0.0)$);
+
+% Record t box 2
+\draw[labelcol, fill=plotbg, rounded corners=3pt, line width=1pt]
+    ($(REC2)+(-0.55,-0.3)$) rectangle ($(REC2)+(0.55, 0.3)$);
+\node[text=labelcol, font=\scriptsize, align=center] at (REC2) {Record\\$t_2$};
 
 % ════════════════════════════════════════════════════════
 % 5. g^(2)(τ,B) HISTOGRAM
 % ════════════════════════════════════════════════════════
 
-\draw[arr, labelcol] ($(CORR)+(0.5, 0.0)$) -- (11.55, 1.5);
-
-\node[anchor=south west] at (10.8, 0.8) {
+\node[anchor=center] at (12.5, 2.5) {
     \includegraphics[width=5.0cm, height=3.5cm, keepaspectratio]{figs/hbt_hist.pdf}
 };
 

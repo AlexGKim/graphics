@@ -52,7 +52,7 @@ fig, ax = plt.subplots(figsize=(6, 3.5))
 fig.patch.set_facecolor(navybg)
 baseline, tau_smooth = make_histogram(ax, mu2=1.0)
 uncorr_line, = ax.plot(tau_smooth, baseline, color='yellow', lw=3, linestyle='--', label='Poissonian')
-ax.set_xlabel(r'$\tau$', color=labelcol, fontsize=21)
+ax.set_xlabel(r'$\tau = \Delta t$', color=labelcol, fontsize=21)
 ax.set_ylabel(r'$[H(\tau) - \langle H \rangle]\,/\,\langle H \rangle$', color=labelcol, fontsize=21)
 ax.set_xlim(0, TAU_MAX)
 ax.set_ylim(-0.2, 1.3)
@@ -138,7 +138,7 @@ legend_elements = [Patch(facecolor=histcol, alpha=0.85, label=r'$B_1$'),
 ax.legend(handles=legend_elements, loc='upper right', framealpha=0.85,
           facecolor=navybg, edgecolor=axiscol, labelcolor=labelcol, fontsize=18)
 
-ax.set_xlabel(r'$\tau$', color=labelcol, fontsize=21)
+ax.set_xlabel(r'$\tau = \Delta t$', color=labelcol, fontsize=21)
 ax.set_ylabel(r'$[H(\tau) - \langle H \rangle]\,/\,\langle H \rangle$', color=labelcol, fontsize=21)
 ax.set_xlim(0, TAU_MAX)
 ax.set_ylim(-0.2, 1.3)

@@ -103,11 +103,20 @@
     ($(DET)+(-0.3,-0.4)$) rectangle ($(DET)+(0.3, 0.4)$);
 \node[text=labelcol, font=\scriptsize] at (DET) {Det};
 
+% Arrow to Record box
+\coordinate (REC) at (8.0, 4.25);
+\draw[arr, labelcol] ($(DET)+(0.3, 0.0)$) -- ($(REC)+(-0.4, 0.0)$);
+
+% Record t box
+\draw[labelcol, fill=plotbg, rounded corners=3pt, line width=1pt]
+    ($(REC)+(-0.4,-0.4)$) rectangle ($(REC)+(0.4, 0.4)$);
+\node[text=labelcol, font=\scriptsize, align=center] at (REC) {Record\\$t$};
+
 
 % ════════════════════════════════════════════════════════
 % 3. g^(2)(τ) HISTOGRAM (bottom right)
 % ════════════════════════════════════════════════════════
-\node[anchor=center] at (11.5, 4.25) {
+\node[anchor=center] at (12.3, 4.25) {
     \includegraphics[width=8.5cm, height=3.8cm, keepaspectratio]{figs/hbt_hist.pdf}
 };
 
