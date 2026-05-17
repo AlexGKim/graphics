@@ -9,6 +9,7 @@
 \definecolor{labelcol}{RGB}{220,220,220}
 \definecolor{plotbg}{RGB}{25,40,60}
 \definecolor{axiscol}{RGB}{180,180,180}
+\definecolor{thirdcol}{RGB}{100,255,150}
 
 \begin{document}
 \begin{tikzpicture}[
@@ -16,9 +17,6 @@
     show background rectangle,
     arr/.style={-{Stealth[length=6pt]}, line width=1.2pt},
     arrthin/.style={-{Stealth[length=4pt]}, line width=0.8pt},
-    mybox/.style={draw=labelcol, fill=plotbg, rounded corners=4pt,
-                  line width=1pt, text=labelcol, font=\small,
-                  inner sep=5pt, align=center},
 ]
 
 \path[use as bounding box] (0,0) rectangle (16,9);
@@ -27,140 +25,118 @@
 % 0. TITLE
 % ════════════════════════════════════════════════════════
 \node[text=labelcol, font=\large\bfseries] at (8.0, 8.3)
-    {First-Order Coherence \textemdash\ Wiener-Khinchin Theorem \textemdash\ $g^{(1)}(\tau) \Leftrightarrow S(\nu)$};
+    {Source First-Order Coherence \textemdash\ Wiener-Khinchin Theorem \textemdash\
+     $g^{(1)}(\tau) \Leftrightarrow S(\nu)$};
 
 % ════════════════════════════════════════════════════════
-% 1. LEFT PANEL: g^(1)(τ) COHERENCE FUNCTION
+% 1. LEFT PANEL: |g^(1)(τ)| COHERENCE FUNCTION
 % ════════════════════════════════════════════════════════
-\coordinate (COHERENCE) at (2.0, 4.5);
+\coordinate (COHERENCE) at (9.5, 3.8);
 
-% Axes for left panel
-\draw[arr, axiscol] ($(COHERENCE)+(0,-0.1)$) -- ($(COHERENCE)+(6.0,-0.1)$);
-\draw[arr, axiscol] ($(COHERENCE)+(0,-0.1)$) -- ($(COHERENCE)+(0, 3.5)$);
-\node[text=axiscol, font=\scriptsize] at ($(COHERENCE)+(6.2,-0.1)$) {$\tau$};
-\node[text=axiscol, font=\scriptsize, rotate=90] at ($(COHERENCE)+(-0.35, 1.75)$) {$|g^{(1)}(\tau)|$};
+% Axes
+\draw[arr, axiscol] ($(COHERENCE)+(0,-0.1)$) -- ($(COHERENCE)+(5.8,-0.1)$);
+\draw[arr, axiscol] ($(COHERENCE)+(0,-0.1)$) -- ($(COHERENCE)+(0, 4.0)$);
+\node[text=axiscol, font=\scriptsize] at ($(COHERENCE)+(6.05,-0.1)$) {$\tau$};
+\node[text=axiscol, font=\scriptsize, rotate=90] at ($(COHERENCE)+(-0.4, 2.0)$) {$|g^{(1)}(\tau)|$};
 \node[text=axiscol, font=\scriptsize] at ($(COHERENCE)+(0.0,-0.3)$) {$0$};
 
-% Narrow spectrum (cyan) — long coherence time, slow decay with oscillation
-% Envelope: exp(-(tau/tau_c)^2) where tau_c is large
-% Oscillation: cos(2*pi*nu_0*tau) with slow frequency
+% Cyan — narrow spectrum, long coherence time τ_c1 ≈ 4 (plot units)
+% Gaussian envelope: 3.4 * exp(-(x/4)^2)
+% x=0:3.40, x=0.5:3.37, x=1:3.19, x=1.5:2.88, x=2:2.48, x=2.5:2.03,
+% x=3:1.59, x=3.5:1.18, x=4:0.84, x=4.5:0.56, x=5:0.36, x=5.5:0.21
 \draw[source1col, line width=2pt]
-    ($(COHERENCE)+(0.0, 3.4)$)
-    .. controls ($(COHERENCE)+(0.25, 3.38)$) and ($(COHERENCE)+(0.5, 3.32)$) ..
-    ($(COHERENCE)+(0.75, 3.20)$)
-    .. controls ($(COHERENCE)+(1.0, 3.03)$) and ($(COHERENCE)+(1.25, 2.80)$) ..
-    ($(COHERENCE)+(1.5, 2.55)$)
-    .. controls ($(COHERENCE)+(1.75, 2.28)$) and ($(COHERENCE)+(2.0, 2.02)$) ..
-    ($(COHERENCE)+(2.25, 1.78)$)
-    .. controls ($(COHERENCE)+(2.5, 1.56)$) and ($(COHERENCE)+(2.75, 1.38)$) ..
-    ($(COHERENCE)+(3.0, 1.25)$)
-    .. controls ($(COHERENCE)+(3.25, 1.16)$) and ($(COHERENCE)+(3.5, 1.12)$) ..
-    ($(COHERENCE)+(3.75, 1.12)$)
-    .. controls ($(COHERENCE)+(4.0, 1.16)$) and ($(COHERENCE)+(4.25, 1.24)$) ..
-    ($(COHERENCE)+(4.5, 1.36)$)
-    .. controls ($(COHERENCE)+(4.75, 1.50)$) and ($(COHERENCE)+(5.0, 1.65)$) ..
-    ($(COHERENCE)+(5.25, 1.78)$)
-    .. controls ($(COHERENCE)+(5.5, 1.88)$) and ($(COHERENCE)+(5.75, 1.95)$) ..
-    ($(COHERENCE)+(6.0, 1.98)$);
+    ($(COHERENCE)+(0.0,  3.40)$)
+    .. controls ($(COHERENCE)+(0.25, 3.39)$) and ($(COHERENCE)+(0.5,  3.37)$) ..
+    ($(COHERENCE)+(0.75, 3.31)$)
+    .. controls ($(COHERENCE)+(1.0,  3.19)$) and ($(COHERENCE)+(1.25, 3.04)$) ..
+    ($(COHERENCE)+(1.5,  2.88)$)
+    .. controls ($(COHERENCE)+(1.75, 2.68)$) and ($(COHERENCE)+(2.0,  2.48)$) ..
+    ($(COHERENCE)+(2.25, 2.26)$)
+    .. controls ($(COHERENCE)+(2.5,  2.03)$) and ($(COHERENCE)+(2.75, 1.81)$) ..
+    ($(COHERENCE)+(3.0,  1.59)$)
+    .. controls ($(COHERENCE)+(3.25, 1.38)$) and ($(COHERENCE)+(3.5,  1.18)$) ..
+    ($(COHERENCE)+(3.75, 1.01)$)
+    .. controls ($(COHERENCE)+(4.0,  0.84)$) and ($(COHERENCE)+(4.25, 0.70)$) ..
+    ($(COHERENCE)+(4.5,  0.56)$)
+    .. controls ($(COHERENCE)+(4.75, 0.45)$) and ($(COHERENCE)+(5.0,  0.36)$) ..
+    ($(COHERENCE)+(5.25, 0.28)$)
+    .. controls ($(COHERENCE)+(5.5,  0.21)$) and ($(COHERENCE)+(5.7,  0.17)$) ..
+    ($(COHERENCE)+(5.75, 0.16)$);
 
-% Broad spectrum (orange) — short coherence time, rapid decay with faster oscillation
-% Envelope decays much faster
+% Orange — delta function spectrum → constant |g^(1)| = 1 (perfect coherence)
 \draw[source2col, line width=2pt]
-    ($(COHERENCE)+(0.0, 3.4)$)
-    .. controls ($(COHERENCE)+(0.15, 3.20)$) and ($(COHERENCE)+(0.3, 2.80)$) ..
-    ($(COHERENCE)+(0.45, 2.35)$)
-    .. controls ($(COHERENCE)+(0.6, 1.85)$) and ($(COHERENCE)+(0.75, 1.35)$) ..
-    ($(COHERENCE)+(0.9, 0.95)$)
-    .. controls ($(COHERENCE)+(1.05, 0.70)$) and ($(COHERENCE)+(1.2, 0.62)$) ..
-    ($(COHERENCE)+(1.35, 0.72)$)
-    .. controls ($(COHERENCE)+(1.5, 0.88)$) and ($(COHERENCE)+(1.65, 1.06)$) ..
-    ($(COHERENCE)+(1.8, 1.20)$)
-    .. controls ($(COHERENCE)+(1.95, 1.28)$) and ($(COHERENCE)+(2.1, 1.30)$) ..
-    ($(COHERENCE)+(2.25, 1.26)$)
-    .. controls ($(COHERENCE)+(2.4, 1.18)$) and ($(COHERENCE)+(2.55, 1.08)$) ..
-    ($(COHERENCE)+(2.7, 1.00)$)
-    .. controls ($(COHERENCE)+(2.85, 0.96)$) and ($(COHERENCE)+(3.0, 0.98)$) ..
-    ($(COHERENCE)+(3.15, 1.06)$)
-    .. controls ($(COHERENCE)+(3.3, 1.14)$) and ($(COHERENCE)+(3.45, 1.18)$) ..
-    ($(COHERENCE)+(3.6, 1.15)$)
-    .. controls ($(COHERENCE)+(3.75, 1.08)$) and ($(COHERENCE)+(3.9, 1.02)$) ..
-    ($(COHERENCE)+(4.05, 1.00)$);
+    ($(COHERENCE)+(0.0, 0.5)$) -- ($(COHERENCE)+(5.75, 0.5)$);
 
-% Coherence time annotations (small tau_c bracket for cyan, broader for orange)
-\draw[source1col, line width=0.8pt, opacity=0.7]
-    ($(COHERENCE)+(3.5, 0.65)$) -- ($(COHERENCE)+(3.5, 0.55)$)
-    -- ($(COHERENCE)+(5.0, 0.55)$) -- ($(COHERENCE)+(5.0, 0.65)$);
-\node[text=source1col, font=\tiny] at ($(COHERENCE)+(4.25, 0.40)$) {$\tau_{c,1}$};
+% Green — constant (white) spectrum → delta function coherence at τ=0
+\draw[thirdcol, line width=2pt]
+    ($(COHERENCE)+(0.01, 3.40)$) -- ($(COHERENCE)+(0.01, 0.0)$);
 
-\draw[source2col, line width=0.8pt, opacity=0.7]
-    ($(COHERENCE)+(0.5, 0.35)$) -- ($(COHERENCE)+(0.5, 0.25)$)
-    -- ($(COHERENCE)+(1.2, 0.25)$) -- ($(COHERENCE)+(1.2, 0.35)$);
-\node[text=source2col, font=\tiny] at ($(COHERENCE)+(0.85, 0.10)$) {$\tau_{c,2}$};
+% τ_c annotation for cyan
+\draw[source1col, line width=0.8pt, dashed, opacity=0.7]
+    ($(COHERENCE)+(4.0, 0.0)$) -- ($(COHERENCE)+(4.0, 0.84)$);
+\node[text=source1col, font=\small, below=3pt] at ($(COHERENCE)+(4.0, 0.0)$) {$\tau_c$};
 
 % ════════════════════════════════════════════════════════
 % 2. FOURIER TRANSFORM ARROW (CENTER)
 % ════════════════════════════════════════════════════════
-\coordinate (FT_CENTER) at (8.0, 4.5);
-
-% Double-headed arrow
-\draw[{Stealth[length=6pt]}-{Stealth[length=6pt]}, line width=1.5pt, labelcol, opacity=0.8]
-    ($(FT_CENTER)+(-1.2, 0)$) -- ($(FT_CENTER)+(1.2, 0)$);
-\node[text=labelcol, font=\small, above=2pt] at ($(FT_CENTER)+(0, 0)$) {$\mathcal{F}$};
-\node[text=labelcol, font=\small, below=2pt] at ($(FT_CENTER)+(0, 0)$) {$\mathcal{F}^{-1}$};
+\draw[{Stealth[length=7pt]}-{Stealth[length=7pt]}, line width=1.8pt, labelcol]
+    (7.5, 6.1) -- (9.0, 6.1);
+\node[text=labelcol, font=\normalsize, above=3pt] at (8.25, 6.1) {$\mathcal{F}$};
+\node[text=labelcol, font=\normalsize, below=3pt] at (8.25, 6.1) {$\mathcal{F}^{-1}$};
 
 % ════════════════════════════════════════════════════════
 % 3. RIGHT PANEL: S(ν) POWER SPECTRUM
 % ════════════════════════════════════════════════════════
-\coordinate (SPECTRUM) at (13.0, 4.5);
+\coordinate (SPECTRUM) at (1.5, 3.8);
 
-% Axes for right panel
-\draw[arr, axiscol] ($(SPECTRUM)+(0,-0.1)$) -- ($(SPECTRUM)+(5.5,-0.1)$);
-\draw[arr, axiscol] ($(SPECTRUM)+(0,-0.1)$) -- ($(SPECTRUM)+(0, 3.5)$);
-\node[text=axiscol, font=\scriptsize] at ($(SPECTRUM)+(5.7,-0.1)$) {$\nu$};
-\node[text=axiscol, font=\scriptsize, rotate=90] at ($(SPECTRUM)+(-0.35, 1.75)$) {$S(\nu)$};
-\node[text=axiscol, font=\scriptsize] at ($(SPECTRUM)+(0.0,-0.3)$) {$0$};
+% Axes
+\draw[arr, axiscol] ($(SPECTRUM)+(0,-0.1)$) -- ($(SPECTRUM)+(5.8,-0.1)$);
+\draw[arr, axiscol] ($(SPECTRUM)+(0,-0.1)$) -- ($(SPECTRUM)+(0, 4.0)$);
+\node[text=axiscol, font=\scriptsize] at ($(SPECTRUM)+(6.05,-0.1)$) {$\nu$};
+\node[text=axiscol, font=\scriptsize, rotate=90] at ($(SPECTRUM)+(-0.4, 2.0)$) {$S(\nu)$};
+\node[text=axiscol, font=\scriptsize] at ($(SPECTRUM)+(0.0,-0.3)$) {$\nu_0$};
 
-% Narrow spectrum (cyan) — tall narrow Gaussian peak (small bandwidth)
-% Peak at nu_0, narrow width
+% Both peaks centered at x=2.9 (ν₀)
+% Cyan — narrow Gaussian, σ=0.55, peak=3.4
+% x=1.2:0.05, x=1.6:0.39, x=2.0:1.44, x=2.4:2.82, x=2.9:3.40,
+% x=3.4:2.82, x=3.8:1.44, x=4.2:0.39, x=4.6:0.05
 \draw[source1col, line width=2pt]
-    ($(SPECTRUM)+(1.0, 0.8)$)
-    .. controls ($(SPECTRUM)+(1.5, 1.2)$) and ($(SPECTRUM)+(2.0, 1.8)$) ..
-    ($(SPECTRUM)+(2.5, 2.6)$)
-    .. controls ($(SPECTRUM)+(2.75, 3.1)$) and ($(SPECTRUM)+(3.0, 3.35)$) ..
-    ($(SPECTRUM)+(3.25, 3.4)$)
-    .. controls ($(SPECTRUM)+(3.5, 3.35)$) and ($(SPECTRUM)+(3.75, 3.1)$) ..
-    ($(SPECTRUM)+(4.0, 2.6)$)
-    .. controls ($(SPECTRUM)+(4.5, 1.8)$) and ($(SPECTRUM)+(5.0, 1.2)$) ..
-    ($(SPECTRUM)+(5.5, 0.8)$);
+    ($(SPECTRUM)+(1.2,  0.05)$)
+    .. controls ($(SPECTRUM)+(1.4,  0.16)$) and ($(SPECTRUM)+(1.6,  0.39)$) ..
+    ($(SPECTRUM)+(1.8,  0.81)$)
+    .. controls ($(SPECTRUM)+(2.0,  1.44)$) and ($(SPECTRUM)+(2.2,  2.10)$) ..
+    ($(SPECTRUM)+(2.4,  2.82)$)
+    .. controls ($(SPECTRUM)+(2.65, 3.25)$) and ($(SPECTRUM)+(2.9,  3.40)$) ..
+    ($(SPECTRUM)+(3.15, 3.25)$)
+    .. controls ($(SPECTRUM)+(3.4,  2.82)$) and ($(SPECTRUM)+(3.6,  2.10)$) ..
+    ($(SPECTRUM)+(3.8,  1.44)$)
+    .. controls ($(SPECTRUM)+(4.0,  0.81)$) and ($(SPECTRUM)+(4.2,  0.39)$) ..
+    ($(SPECTRUM)+(4.4,  0.16)$)
+    .. controls ($(SPECTRUM)+(4.55, 0.07)$) and ($(SPECTRUM)+(4.6,  0.05)$) ..
+    ($(SPECTRUM)+(4.7,  0.03)$);
 
-% Broad spectrum (orange) — shorter wider Gaussian (large bandwidth)
+% Orange — delta function spectrum: spike at ν₀
 \draw[source2col, line width=2pt]
-    ($(SPECTRUM)+(0.3, 1.2)$)
-    .. controls ($(SPECTRUM)+(0.9, 1.6)$) and ($(SPECTRUM)+(1.5, 2.0)$) ..
-    ($(SPECTRUM)+(2.3, 2.4)$)
-    .. controls ($(SPECTRUM)+(2.75, 2.65)$) and ($(SPECTRUM)+(3.25, 2.8)$) ..
-    ($(SPECTRUM)+(3.75, 2.65)$)
-    .. controls ($(SPECTRUM)+(4.5, 2.4)$) and ($(SPECTRUM)+(5.1, 2.0)$) ..
-    ($(SPECTRUM)+(5.5, 1.2)$);
+    ($(SPECTRUM)+(2.9, 0.0)$) -- ($(SPECTRUM)+(2.9, 3.40)$);
 
-% Bandwidth annotations (FWHM brackets)
-% Narrow spectrum: smaller delta_nu
-\draw[source1col, line width=0.8pt, opacity=0.7]
-    ($(SPECTRUM)+(2.5, 1.55)$) -- ($(SPECTRUM)+(2.5, 1.45)$)
-    -- ($(SPECTRUM)+(4.0, 1.45)$) -- ($(SPECTRUM)+(4.0, 1.55)$);
-\node[text=source1col, font=\tiny] at ($(SPECTRUM)+(3.25, 1.25)$) {$\Delta\nu_1$};
+% Green — constant (white) spectrum: flat line
+\draw[thirdcol, line width=2pt]
+    ($(SPECTRUM)+(0.0, 1.70)$) -- ($(SPECTRUM)+(5.75, 1.70)$);
 
-% Broad spectrum: larger delta_nu
-\draw[source2col, line width=0.8pt, opacity=0.7]
-    ($(SPECTRUM)+(0.8, 1.65)$) -- ($(SPECTRUM)+(0.8, 1.55)$)
-    -- ($(SPECTRUM)+(4.7, 1.55)$) -- ($(SPECTRUM)+(4.7, 1.65)$);
-\node[text=source2col, font=\tiny] at ($(SPECTRUM)+(2.75, 1.35)$) {$\Delta\nu_2$};
+% Bandwidth annotation for cyan only
+\draw[source1col, line width=0.8pt, opacity=0.8]
+    ($(SPECTRUM)+(2.25, 1.70)$) -- ($(SPECTRUM)+(2.25, 1.55)$)
+    -- ($(SPECTRUM)+(3.55, 1.55)$) -- ($(SPECTRUM)+(3.55, 1.70)$);
+\node[text=source1col, font=\small] at ($(SPECTRUM)+(2.9, 1.35)$) {$\Delta\nu$};
 
 % ════════════════════════════════════════════════════════
 % 4. CAPTION
 % ════════════════════════════════════════════════════════
-\node[text=labelcol, font=\small, align=center] at (8.0, 0.6)
-    {$g^{(1)}(\tau) \Longleftrightarrow S(\nu)$ \quad Wiener-Khinchin theorem: $\tau_c \sim 1/\Delta\nu$};
+\node[text=labelcol, font=\small, align=left, text width=14.5cm] at (8.0, 1.7)
+    {$E(t) = \int_{-\infty}^{\infty} \tilde{E}(\nu) e^{-i2\pi\nu t} d\nu$ \\[5pt]
+     $\Gamma(\tau) = \langle E^*(t) E(t+\tau) \rangle = \left\langle \int \int \tilde{E}^*(\nu) \tilde{E}(\nu') e^{i2\pi(\nu-\nu') t} e^{-i2\pi\nu'\tau} d\nu \, d\nu' \right\rangle$ \\[5pt]
+     $\langle e^{i2\pi(\nu-\nu')t}\rangle = \delta(\nu - \nu') \implies \Gamma(\tau) = \int |\tilde{E}(\nu)|^2 e^{-i2\pi\nu\tau} d\nu$ \\[5pt]
+     $g^{(1)}(\tau) = \dfrac{\Gamma(\tau)}{\Gamma(0)} = \dfrac{\int S(\nu) e^{-i2\pi\nu\tau} d\nu}{\int S(\nu) d\nu}$};
 
 \end{tikzpicture}
 \end{document}
