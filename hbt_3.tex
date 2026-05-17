@@ -162,51 +162,12 @@
 % ════════════════════════════════════════════════════════
 % 5. g^(2)(τ,B) HISTOGRAM
 % ════════════════════════════════════════════════════════
-\coordinate (HIST) at (11.3, 2.5);
 
-\draw[arr, labelcol] ($(CORR)+(0.5, 0.0)$) -- ($(HIST)+(0.2, 1.5)$);
+\draw[arr, labelcol] ($(CORR)+(0.5, 0.0)$) -- (11.55, 1.5);
 
-% Axes
-\draw[arr, axiscol] ($(HIST)+(0,-0.1)$) -- ($(HIST)+(4.2,-0.1)$);
-\draw[arr, axiscol] ($(HIST)+(0,-0.1)$) -- ($(HIST)+(0, 1.5)$);
-\node[text=axiscol, font=\scriptsize] at ($(HIST)+(4.4,-0.1)$) {$\tau$};
-\node[text=axiscol, font=\scriptsize, rotate=90] at ($(HIST)+(-0.35, 0.7)$) {$H(\tau)$};
-
-% Uncorrelated baseline: exponential decay, asymptoting to 0
-\draw[axiscol, line width=1.0pt, dashed]
-    ($(HIST)+(0.0, 0.575)$)
-    .. controls ($(HIST)+(1.0, 0.45)$) and ($(HIST)+(2.5, 0.20)$) ..
-    ($(HIST)+(4.0, 0.01)$);
-\node[text=axiscol, font=\scriptsize, left=1pt] at ($(HIST)+(4.0, 0.48)$) {uncorrelated};
-
-% Histogram bars for τ>=0 (lower peak due to spatial coherence at baseline B, even faster decay)
-\fill[histcol, opacity=0.8]
-    ($(HIST)+(0.0,-0.1)$) rectangle ($(HIST)+(0.3, 1.15)$);
-\fill[histcol, opacity=0.75]
-    ($(HIST)+(0.3,-0.1)$) rectangle ($(HIST)+(0.6, 0.75)$);
-\fill[histcol, opacity=0.65]
-    ($(HIST)+(0.6,-0.1)$) rectangle ($(HIST)+(0.9, 0.53)$);
-\fill[histcol, opacity=0.55]
-    ($(HIST)+(0.9,-0.1)$) rectangle ($(HIST)+(1.2, 0.45)$);
-\fill[histcol, opacity=0.48]
-    ($(HIST)+(1.2,-0.1)$) rectangle ($(HIST)+(1.5, 0.38)$);
-\fill[histcol, opacity=0.43]
-    ($(HIST)+(1.5,-0.1)$) rectangle ($(HIST)+(1.8, 0.32)$);
-\fill[histcol, opacity=0.40]
-    ($(HIST)+(1.8,-0.1)$) rectangle ($(HIST)+(2.1, 0.25)$);
-\fill[histcol, opacity=0.38]
-    ($(HIST)+(2.1,-0.1)$) rectangle ($(HIST)+(2.4, 0.18)$);
-\fill[histcol, opacity=0.36]
-    ($(HIST)+(2.4,-0.1)$) rectangle ($(HIST)+(2.7, 0.12)$);
-\fill[histcol, opacity=0.35]
-    ($(HIST)+(2.7,-0.1)$) rectangle ($(HIST)+(3.0, 0.07)$);
-\fill[histcol, opacity=0.35]
-    ($(HIST)+(3.0,-0.1)$) rectangle ($(HIST)+(3.3, 0.04)$);
-\fill[histcol, opacity=0.35]
-    ($(HIST)+(3.3,-0.1)$) rectangle ($(HIST)+(3.6, 0.02)$);
-
-% τ=0 label
-\node[text=axiscol, font=\scriptsize] at ($(HIST)+(0.0,-0.3)$) {$0$};
+\node[anchor=south west] at (10.8, 0.8) {
+    \includegraphics[width=5.0cm, height=3.5cm, keepaspectratio]{figs/hbt_hist.pdf}
+};
 
 % Caption
 \node[text=labelcol, font=\small, align=center] at (8.0, 0.55)
