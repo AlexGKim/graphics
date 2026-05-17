@@ -25,26 +25,23 @@ TAU_OBS = 5.0
 TAU_MAX = 6.5
 BIN_W   = 0.3
 SCALE   = 2000
-G2_YMAX = 2.2
 
 
 def make_histogram(ax, mu2, color=histcol, alpha=0.85, seed=42):
-    """Draw H(τ)/H_uncorr(0) bars + baseline on ax. y-axis is on g^(2) scale."""
+    """Draw (H(τ) - <H>) bars on ax; Poissonian baseline is at 0."""
     bins = np.arange(0, TAU_MAX, BIN_W)
     tau_centers = bins + BIN_W / 2
 
-    H_uncorr = np.exp(-tau_centers / TAU_OBS)   # H_uncorr(0) = 1
-    g2 = 1 + mu2 * np.exp(-(tau_centers / TAU_C) ** 2)
-    H = H_uncorr * g2   # already normalised: H(0) = g^(2)(0,B)
+    excess = mu2 * np.exp(-(tau_centers / TAU_C) ** 2)
 
     rng = np.random.default_rng(seed)
-    H_counts = rng.poisson(H * SCALE) / SCALE
+    H_counts = rng.poisson((1 + excess) * SCALE) / SCALE - 1.0
 
     ax.bar(bins, H_counts, width=BIN_W, align='edge',
            color=color, alpha=alpha, edgecolor='none')
 
     tau_smooth = np.linspace(0, TAU_MAX, 300)
-    baseline = np.exp(-tau_smooth / TAU_OBS)
+    baseline = np.zeros_like(tau_smooth)
     return baseline, tau_smooth
 
 
@@ -54,12 +51,13 @@ def make_histogram(ax, mu2, color=histcol, alpha=0.85, seed=42):
 fig, ax = plt.subplots(figsize=(6, 3.5))
 fig.patch.set_facecolor(navybg)
 baseline, tau_smooth = make_histogram(ax, mu2=1.0)
-uncorr_line, = ax.plot(tau_smooth, baseline, color='yellow', lw=3, linestyle='--', label='uncorrelated')
+uncorr_line, = ax.plot(tau_smooth, baseline, color='yellow', lw=3, linestyle='--', label='Poissonian')
 ax.set_xlabel(r'$\tau$', color=labelcol, fontsize=21)
-ax.set_ylabel(r'$H(\tau)$', color=labelcol, fontsize=21)
+ax.set_ylabel(r'$[H(\tau) - \langle H \rangle]\,/\,\langle H \rangle$', color=labelcol, fontsize=21)
 ax.set_xlim(0, TAU_MAX)
-ax.set_ylim(0, G2_YMAX)
-ax.set_yticks([])
+ax.set_ylim(-0.2, 1.3)
+ax.set_yticks([0])
+ax.set_yticklabels(['0'])
 ax.legend(handles=[uncorr_line], loc='upper right', framealpha=0.85,
           facecolor=navybg, edgecolor=axiscol, labelcolor=labelcol, fontsize=17)
 style_ax(ax)
@@ -131,7 +129,7 @@ make_histogram(ax, mu2=mu2_B2, color=ocol, alpha=0.7, seed=7)
 
 # Shared baseline on top
 from matplotlib.lines import Line2D
-uncorr_line = Line2D([0], [0], color='yellow', lw=3, linestyle='--', label='uncorrelated')
+uncorr_line = Line2D([0], [0], color='yellow', lw=3, linestyle='--', label='Poissonian')
 ax.plot(tau_smooth, baseline, color='yellow', lw=3, linestyle='--')
 
 legend_elements = [Patch(facecolor=histcol, alpha=0.85, label=r'$B_1$'),
@@ -141,10 +139,11 @@ ax.legend(handles=legend_elements, loc='upper right', framealpha=0.85,
           facecolor=navybg, edgecolor=axiscol, labelcolor=labelcol, fontsize=18)
 
 ax.set_xlabel(r'$\tau$', color=labelcol, fontsize=21)
-ax.set_ylabel(r'$H(\tau)$', color=labelcol, fontsize=21)
+ax.set_ylabel(r'$[H(\tau) - \langle H \rangle]\,/\,\langle H \rangle$', color=labelcol, fontsize=21)
 ax.set_xlim(0, TAU_MAX)
-ax.set_ylim(0, G2_YMAX)
-ax.set_yticks([])
+ax.set_ylim(-0.2, 1.3)
+ax.set_yticks([0])
+ax.set_yticklabels(['0'])
 style_ax(ax)
 
 plt.tight_layout()
