@@ -29,8 +29,8 @@ lorentzian = delta_nu / (1 + (nu / delta_nu)**2)
 # Gaussian: S(ν) ∝ exp(-(ν-ν0)²/(2σ²))
 gaussian = np.exp(-(nu / delta_nu)**2 / 2)
 
-# Tophat/rectangular
-tophat = np.where(np.abs(nu) <= delta_nu/2, 1.0, 0)
+# Tophat/rectangular: full width = 2*delta_nu to match FWHM of Lorentzian
+tophat = np.where(np.abs(nu) <= delta_nu, 1.0, 0)
 
 ax_left.plot(nu, lorentzian, color=source1col, linewidth=2.5, label='Lorentzian')
 ax_left.plot(nu, gaussian, color=source2col, linewidth=2.5, label='Gaussian')
@@ -59,8 +59,8 @@ tau_c = 2.0  # coherence time
 # Lorentzian spectrum → exponential g^(1): exp(-τ/τ_c)
 g1_lorentzian = np.exp(-tau / tau_c)
 
-# Gaussian spectrum → Gaussian g^(1): exp(-(πτ/τ_c)²)
-g1_gaussian = np.exp(-(np.pi * tau / tau_c)**2)
+# Gaussian spectrum → Gaussian g^(1): exp(-τ²/(2τ_c²))
+g1_gaussian = np.exp(-(tau / tau_c)**2 / 2)
 
 # Tophat spectrum → sinc g^(1): |sinc(πτ/τ_c)|
 g1_tophat = np.abs(np.sinc(tau / tau_c))

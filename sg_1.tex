@@ -24,26 +24,16 @@
 % ════════════════════════════════════════════════════════
 % 1. EQUATION
 % ════════════════════════════════════════════════════════
-\node[text=labelcol, font=\normalsize, align=center] at (8.0, 7.2)
+\node[text=labelcol, font=\normalsize, align=center] at (8.0, 7.3)
     {$g^{(2)}(\tau) = \dfrac{\langle I(t)\,I(t+\tau)\rangle}{\langle I(t)\rangle^2}$};
 
 % ════════════════════════════════════════════════════════
-% 2. PLOT: g^(2) for three source types (from Wikimedia Commons)
+% 2. PLOT: g^(2) for three source types
 % ════════════════════════════════════════════════════════
-\fill[gray!20] (1.0, 1.5) rectangle (15.0, 6.8);
-\node[anchor=center] at (8.0, 4.2) {
-    \includegraphics[width=0.85\textwidth, height=5cm, keepaspectratio]{figs/Coherence_g2.pdf}
+\node[anchor=center] at (8.0, 3.8) {
+    \includegraphics[width=0.9\textwidth, height=5.5cm, keepaspectratio]{figs/sg_g2_plot.pdf}
 };
 
-% ════════════════════════════════════════════════════════
-% 2. CAPTION WITH ATTRIBUTION
-% ════════════════════════════════════════════════════════
-\node[text=labelcol, font=\footnotesize, align=center, text width=15cm] at (8.0, 0.85) {
-    Plot of $g^{(2)}(\tau)$ as a function of normalized delay $\tau/\tau_c$.
-    Blue: coherent state (ideal laser). Red: Lorentzian chaotic light (collision broadened).
-    Green: Gaussian chaotic light (Doppler broadened). \\[2pt]
-    \textit{By Ajbura, CC BY-SA 4.0}
-};
 
 \end{tikzpicture}
 \end{document}
