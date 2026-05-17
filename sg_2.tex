@@ -1,0 +1,163 @@
+\documentclass[tikz, border=10pt]{standalone}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing, arrows.meta, calc, backgrounds}
+
+\definecolor{navybg}{RGB}{13,27,42}
+\definecolor{source1col}{RGB}{0,220,255}
+\definecolor{source2col}{RGB}{255,165,0}
+\definecolor{labelcol}{RGB}{220,220,220}
+\definecolor{plotbg}{RGB}{25,40,60}
+\definecolor{axiscol}{RGB}{180,180,180}
+
+\begin{document}
+\begin{tikzpicture}[
+    background rectangle/.style={fill=navybg},
+    show background rectangle,
+    arr/.style={-{Stealth[length=6pt]}, line width=1.2pt},
+]
+
+\path[use as bounding box] (0,0) rectangle (16,9);
+
+% ════════════════════════════════════════════════════════
+% 0. TITLE
+% ════════════════════════════════════════════════════════
+\node[text=labelcol, font=\large\bfseries] at (8.0, 8.3)
+    {Source Second-Order Coherence \textemdash\ Siegert Relation \textemdash\
+     $g^{(2)}(\tau) = 1 + |g^{(1)}(\tau)|^2$};
+
+% ════════════════════════════════════════════════════════
+% 1. LEFT PANEL: |g^(1)(τ)|
+% ════════════════════════════════════════════════════════
+\coordinate (COHERENCE) at (1.5, 3.8);
+
+% Axes
+\draw[arr, axiscol] ($(COHERENCE)+(0,-0.1)$) -- ($(COHERENCE)+(5.8,-0.1)$);
+\draw[arr, axiscol] ($(COHERENCE)+(0,-0.1)$) -- ($(COHERENCE)+(0, 4.0)$);
+\node[text=axiscol, font=\scriptsize] at ($(COHERENCE)+(6.05,-0.1)$) {$\tau$};
+\node[text=axiscol, font=\scriptsize, rotate=90] at ($(COHERENCE)+(-0.45, 2.0)$) {$|g^{(1)}(\tau)|$};
+\node[text=axiscol, font=\scriptsize] at ($(COHERENCE)+(0.0,-0.3)$) {$0$};
+
+% Cyan — Gaussian envelope: 3.4 * exp(-(x/4)^2)
+% x=0:3.40, x=0.5:3.37, x=1:3.19, x=1.5:2.88, x=2:2.48, x=2.5:2.03,
+% x=3:1.59, x=3.5:1.18, x=4:0.84, x=4.5:0.56, x=5:0.36, x=5.5:0.21
+\draw[source1col, line width=2pt]
+    ($(COHERENCE)+(0.0,  3.40)$)
+    .. controls ($(COHERENCE)+(0.25, 3.39)$) and ($(COHERENCE)+(0.5,  3.37)$) ..
+    ($(COHERENCE)+(0.75, 3.31)$)
+    .. controls ($(COHERENCE)+(1.0,  3.19)$) and ($(COHERENCE)+(1.25, 3.04)$) ..
+    ($(COHERENCE)+(1.5,  2.88)$)
+    .. controls ($(COHERENCE)+(1.75, 2.68)$) and ($(COHERENCE)+(2.0,  2.48)$) ..
+    ($(COHERENCE)+(2.25, 2.26)$)
+    .. controls ($(COHERENCE)+(2.5,  2.03)$) and ($(COHERENCE)+(2.75, 1.81)$) ..
+    ($(COHERENCE)+(3.0,  1.59)$)
+    .. controls ($(COHERENCE)+(3.25, 1.38)$) and ($(COHERENCE)+(3.5,  1.18)$) ..
+    ($(COHERENCE)+(3.75, 1.01)$)
+    .. controls ($(COHERENCE)+(4.0,  0.84)$) and ($(COHERENCE)+(4.25, 0.70)$) ..
+    ($(COHERENCE)+(4.5,  0.56)$)
+    .. controls ($(COHERENCE)+(4.75, 0.45)$) and ($(COHERENCE)+(5.0,  0.36)$) ..
+    ($(COHERENCE)+(5.25, 0.28)$)
+    .. controls ($(COHERENCE)+(5.5,  0.21)$) and ($(COHERENCE)+(5.7,  0.17)$) ..
+    ($(COHERENCE)+(5.75, 0.16)$);
+
+% τ_c annotation
+\draw[source1col, line width=0.8pt, dashed, opacity=0.7]
+    ($(COHERENCE)+(4.0, 0.0)$) -- ($(COHERENCE)+(4.0, 0.84)$);
+\node[text=source1col, font=\small, below=3pt] at ($(COHERENCE)+(4.0, 0.0)$) {$\tau_c$};
+
+% ════════════════════════════════════════════════════════
+% 2. SIEGERT ARROW (CENTER)
+% ════════════════════════════════════════════════════════
+\draw[{Stealth[length=7pt]}-{Stealth[length=7pt]}, line width=1.8pt, labelcol]
+    (7.5, 6.1) -- (9.0, 6.1);
+\node[text=labelcol, font=\normalsize, above=3pt] at (8.25, 6.1) {Siegert};
+\node[text=labelcol, font=\small, below=3pt] at (8.25, 6.1) {$g^{(2)} = 1 + |g^{(1)}|^2$};
+
+% ════════════════════════════════════════════════════════
+% 3. RIGHT PANEL: g^(2)(τ)
+% ════════════════════════════════════════════════════════
+\coordinate (GTWO) at (9.5, 3.8);
+
+% Axes
+\draw[arr, axiscol] ($(GTWO)+(0,-0.1)$) -- ($(GTWO)+(5.8,-0.1)$);
+\draw[arr, axiscol] ($(GTWO)+(0,-0.1)$) -- ($(GTWO)+(0, 4.0)$);
+\node[text=axiscol, font=\scriptsize] at ($(GTWO)+(6.05,-0.1)$) {$\tau$};
+\node[text=axiscol, font=\scriptsize, rotate=90] at ($(GTWO)+(-0.45, 2.0)$) {$g^{(2)}(\tau)$};
+\node[text=axiscol, font=\scriptsize] at ($(GTWO)+(0.0,-0.3)$) {$0$};
+
+% y-axis tick marks and labels
+% g^(2)=1 → y_plot=1.6,  g^(2)=2 → y_plot=3.2
+\draw[axiscol, line width=0.6pt] ($(GTWO)+(-0.1, 1.6)$) -- ($(GTWO)+(0.1, 1.6)$);
+\node[text=axiscol, font=\scriptsize, left=2pt] at ($(GTWO)+(0.0, 1.6)$) {$1$};
+\draw[axiscol, line width=0.6pt] ($(GTWO)+(-0.1, 3.2)$) -- ($(GTWO)+(0.1, 3.2)$);
+\node[text=axiscol, font=\scriptsize, left=2pt] at ($(GTWO)+(0.0, 3.2)$) {$2$};
+
+% Dashed baseline at g^(2) = 1 (y_plot = 1.6)
+\draw[axiscol, line width=0.8pt, dashed, opacity=0.7]
+    ($(GTWO)+(0.0, 1.6)$) -- ($(GTWO)+(5.75, 1.6)$);
+
+% Shaded fill between g^(2) curve and baseline y=1.6
+% g^(2)(τ) = 1 + exp(-(x/4)^2), scaled: y_plot = 1.6 + 1.6*exp(-(x/4)^2)
+% x=0:3.20, x=0.5:3.17, x=1:3.01, x=1.5:2.75, x=2:2.39, x=2.5:1.97,
+% x=3:1.62, x=3.5:1.37, x=4:1.21, x=4.5:1.12, x=5:1.06, x=5.5:1.03
+\fill[source1col, opacity=0.15]
+    ($(GTWO)+(0.0,  3.20)$)
+    .. controls ($(GTWO)+(0.25, 3.19)$) and ($(GTWO)+(0.5,  3.17)$) ..
+    ($(GTWO)+(0.75, 3.11)$)
+    .. controls ($(GTWO)+(1.0,  3.01)$) and ($(GTWO)+(1.25, 2.88)$) ..
+    ($(GTWO)+(1.5,  2.75)$)
+    .. controls ($(GTWO)+(1.75, 2.58)$) and ($(GTWO)+(2.0,  2.39)$) ..
+    ($(GTWO)+(2.25, 2.20)$)
+    .. controls ($(GTWO)+(2.5,  1.97)$) and ($(GTWO)+(2.75, 1.79)$) ..
+    ($(GTWO)+(3.0,  1.62)$)
+    .. controls ($(GTWO)+(3.25, 1.50)$) and ($(GTWO)+(3.5,  1.37)$) ..
+    ($(GTWO)+(3.75, 1.28)$)
+    .. controls ($(GTWO)+(4.0,  1.21)$) and ($(GTWO)+(4.25, 1.15)$) ..
+    ($(GTWO)+(4.5,  1.12)$)
+    .. controls ($(GTWO)+(4.75, 1.09)$) and ($(GTWO)+(5.0,  1.06)$) ..
+    ($(GTWO)+(5.25, 1.04)$)
+    .. controls ($(GTWO)+(5.5,  1.03)$) and ($(GTWO)+(5.7,  1.02)$) ..
+    ($(GTWO)+(5.75, 1.02)$)
+    -- ($(GTWO)+(5.75, 1.6)$)
+    -- ($(GTWO)+(0.0,  1.6)$)
+    -- cycle;
+
+% Cyan g^(2) curve
+\draw[source1col, line width=2pt]
+    ($(GTWO)+(0.0,  3.20)$)
+    .. controls ($(GTWO)+(0.25, 3.19)$) and ($(GTWO)+(0.5,  3.17)$) ..
+    ($(GTWO)+(0.75, 3.11)$)
+    .. controls ($(GTWO)+(1.0,  3.01)$) and ($(GTWO)+(1.25, 2.88)$) ..
+    ($(GTWO)+(1.5,  2.75)$)
+    .. controls ($(GTWO)+(1.75, 2.58)$) and ($(GTWO)+(2.0,  2.39)$) ..
+    ($(GTWO)+(2.25, 2.20)$)
+    .. controls ($(GTWO)+(2.5,  1.97)$) and ($(GTWO)+(2.75, 1.79)$) ..
+    ($(GTWO)+(3.0,  1.62)$)
+    .. controls ($(GTWO)+(3.25, 1.50)$) and ($(GTWO)+(3.5,  1.37)$) ..
+    ($(GTWO)+(3.75, 1.28)$)
+    .. controls ($(GTWO)+(4.0,  1.21)$) and ($(GTWO)+(4.25, 1.15)$) ..
+    ($(GTWO)+(4.5,  1.12)$)
+    .. controls ($(GTWO)+(4.75, 1.09)$) and ($(GTWO)+(5.0,  1.06)$) ..
+    ($(GTWO)+(5.25, 1.04)$)
+    .. controls ($(GTWO)+(5.5,  1.03)$) and ($(GTWO)+(5.7,  1.02)$) ..
+    ($(GTWO)+(5.75, 1.02)$);
+
+% Label inside shaded region
+\node[text=source1col, font=\small] at ($(GTWO)+(1.5, 2.3)$) {$|g^{(1)}(\tau)|^2$};
+
+% g^(2)(0) = 2 annotation
+\node[text=labelcol, font=\small, right=4pt] at ($(GTWO)+(0.0, 3.20)$) {$g^{(2)}(0)=2$};
+
+% τ_c annotation (aligned with left panel)
+\draw[source1col, line width=0.8pt, dashed, opacity=0.7]
+    ($(GTWO)+(4.0, 1.6)$) -- ($(GTWO)+(4.0, 1.21)$);
+\node[text=source1col, font=\small, below=3pt] at ($(GTWO)+(4.0, 0.0)$) {$\tau_c$};
+
+% ════════════════════════════════════════════════════════
+% 4. BOTTOM EQUATION
+% ════════════════════════════════════════════════════════
+\node[text=labelcol, font=\small, align=center] at (8.0, 1.3)
+    {$g^{(2)}(\tau) = 1 + |g^{(1)}(\tau)|^2 \quad \text{(chaotic light)}$};
+
+\end{tikzpicture}
+\end{document}
