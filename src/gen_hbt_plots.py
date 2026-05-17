@@ -54,7 +54,7 @@ def make_histogram(ax, mu2, color=histcol, alpha=0.85, seed=42):
 fig, ax = plt.subplots(figsize=(6, 3.5))
 fig.patch.set_facecolor(navybg)
 baseline, tau_smooth = make_histogram(ax, mu2=1.0)
-uncorr_line, = ax.plot(tau_smooth, baseline, color='black', lw=3, linestyle='--', label='uncorrelated')
+uncorr_line, = ax.plot(tau_smooth, baseline, color='yellow', lw=3, linestyle='--', label='uncorrelated')
 ax.set_xlabel(r'$\tau$', color=labelcol, fontsize=21)
 ax.set_ylabel(r'$H(\tau)$', color=labelcol, fontsize=21)
 ax.set_xlim(0, TAU_MAX)
@@ -131,8 +131,8 @@ make_histogram(ax, mu2=mu2_B2, color=ocol, alpha=0.7, seed=7)
 
 # Shared baseline on top
 from matplotlib.lines import Line2D
-uncorr_line = Line2D([0], [0], color='black', lw=3, linestyle='--', label='uncorrelated')
-ax.plot(tau_smooth, baseline, color='black', lw=3, linestyle='--')
+uncorr_line = Line2D([0], [0], color='yellow', lw=3, linestyle='--', label='uncorrelated')
+ax.plot(tau_smooth, baseline, color='yellow', lw=3, linestyle='--')
 
 legend_elements = [Patch(facecolor=histcol, alpha=0.85, label=r'$B_1$'),
                    Patch(facecolor=ocol,    alpha=0.70, label=r'$B_2$'),
