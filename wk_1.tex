@@ -1,0 +1,166 @@
+\documentclass[tikz, border=10pt]{standalone}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing, arrows.meta, calc, backgrounds}
+
+\definecolor{navybg}{RGB}{13,27,42}
+\definecolor{source1col}{RGB}{0,220,255}
+\definecolor{source2col}{RGB}{255,165,0}
+\definecolor{labelcol}{RGB}{220,220,220}
+\definecolor{plotbg}{RGB}{25,40,60}
+\definecolor{axiscol}{RGB}{180,180,180}
+
+\begin{document}
+\begin{tikzpicture}[
+    background rectangle/.style={fill=navybg},
+    show background rectangle,
+    arr/.style={-{Stealth[length=6pt]}, line width=1.2pt},
+    arrthin/.style={-{Stealth[length=4pt]}, line width=0.8pt},
+    mybox/.style={draw=labelcol, fill=plotbg, rounded corners=4pt,
+                  line width=1pt, text=labelcol, font=\small,
+                  inner sep=5pt, align=center},
+]
+
+\path[use as bounding box] (0,0) rectangle (16,9);
+
+% ════════════════════════════════════════════════════════
+% 0. TITLE
+% ════════════════════════════════════════════════════════
+\node[text=labelcol, font=\large\bfseries] at (8.0, 8.3)
+    {First-Order Coherence \textemdash\ Wiener-Khinchin Theorem \textemdash\ $g^{(1)}(\tau) \Leftrightarrow S(\nu)$};
+
+% ════════════════════════════════════════════════════════
+% 1. LEFT PANEL: g^(1)(τ) COHERENCE FUNCTION
+% ════════════════════════════════════════════════════════
+\coordinate (COHERENCE) at (2.0, 4.5);
+
+% Axes for left panel
+\draw[arr, axiscol] ($(COHERENCE)+(0,-0.1)$) -- ($(COHERENCE)+(6.0,-0.1)$);
+\draw[arr, axiscol] ($(COHERENCE)+(0,-0.1)$) -- ($(COHERENCE)+(0, 3.5)$);
+\node[text=axiscol, font=\scriptsize] at ($(COHERENCE)+(6.2,-0.1)$) {$\tau$};
+\node[text=axiscol, font=\scriptsize, rotate=90] at ($(COHERENCE)+(-0.35, 1.75)$) {$|g^{(1)}(\tau)|$};
+\node[text=axiscol, font=\scriptsize] at ($(COHERENCE)+(0.0,-0.3)$) {$0$};
+
+% Narrow spectrum (cyan) — long coherence time, slow decay with oscillation
+% Envelope: exp(-(tau/tau_c)^2) where tau_c is large
+% Oscillation: cos(2*pi*nu_0*tau) with slow frequency
+\draw[source1col, line width=2pt]
+    ($(COHERENCE)+(0.0, 3.4)$)
+    .. controls ($(COHERENCE)+(0.25, 3.38)$) and ($(COHERENCE)+(0.5, 3.32)$) ..
+    ($(COHERENCE)+(0.75, 3.20)$)
+    .. controls ($(COHERENCE)+(1.0, 3.03)$) and ($(COHERENCE)+(1.25, 2.80)$) ..
+    ($(COHERENCE)+(1.5, 2.55)$)
+    .. controls ($(COHERENCE)+(1.75, 2.28)$) and ($(COHERENCE)+(2.0, 2.02)$) ..
+    ($(COHERENCE)+(2.25, 1.78)$)
+    .. controls ($(COHERENCE)+(2.5, 1.56)$) and ($(COHERENCE)+(2.75, 1.38)$) ..
+    ($(COHERENCE)+(3.0, 1.25)$)
+    .. controls ($(COHERENCE)+(3.25, 1.16)$) and ($(COHERENCE)+(3.5, 1.12)$) ..
+    ($(COHERENCE)+(3.75, 1.12)$)
+    .. controls ($(COHERENCE)+(4.0, 1.16)$) and ($(COHERENCE)+(4.25, 1.24)$) ..
+    ($(COHERENCE)+(4.5, 1.36)$)
+    .. controls ($(COHERENCE)+(4.75, 1.50)$) and ($(COHERENCE)+(5.0, 1.65)$) ..
+    ($(COHERENCE)+(5.25, 1.78)$)
+    .. controls ($(COHERENCE)+(5.5, 1.88)$) and ($(COHERENCE)+(5.75, 1.95)$) ..
+    ($(COHERENCE)+(6.0, 1.98)$);
+
+% Broad spectrum (orange) — short coherence time, rapid decay with faster oscillation
+% Envelope decays much faster
+\draw[source2col, line width=2pt]
+    ($(COHERENCE)+(0.0, 3.4)$)
+    .. controls ($(COHERENCE)+(0.15, 3.20)$) and ($(COHERENCE)+(0.3, 2.80)$) ..
+    ($(COHERENCE)+(0.45, 2.35)$)
+    .. controls ($(COHERENCE)+(0.6, 1.85)$) and ($(COHERENCE)+(0.75, 1.35)$) ..
+    ($(COHERENCE)+(0.9, 0.95)$)
+    .. controls ($(COHERENCE)+(1.05, 0.70)$) and ($(COHERENCE)+(1.2, 0.62)$) ..
+    ($(COHERENCE)+(1.35, 0.72)$)
+    .. controls ($(COHERENCE)+(1.5, 0.88)$) and ($(COHERENCE)+(1.65, 1.06)$) ..
+    ($(COHERENCE)+(1.8, 1.20)$)
+    .. controls ($(COHERENCE)+(1.95, 1.28)$) and ($(COHERENCE)+(2.1, 1.30)$) ..
+    ($(COHERENCE)+(2.25, 1.26)$)
+    .. controls ($(COHERENCE)+(2.4, 1.18)$) and ($(COHERENCE)+(2.55, 1.08)$) ..
+    ($(COHERENCE)+(2.7, 1.00)$)
+    .. controls ($(COHERENCE)+(2.85, 0.96)$) and ($(COHERENCE)+(3.0, 0.98)$) ..
+    ($(COHERENCE)+(3.15, 1.06)$)
+    .. controls ($(COHERENCE)+(3.3, 1.14)$) and ($(COHERENCE)+(3.45, 1.18)$) ..
+    ($(COHERENCE)+(3.6, 1.15)$)
+    .. controls ($(COHERENCE)+(3.75, 1.08)$) and ($(COHERENCE)+(3.9, 1.02)$) ..
+    ($(COHERENCE)+(4.05, 1.00)$);
+
+% Coherence time annotations (small tau_c bracket for cyan, broader for orange)
+\draw[source1col, line width=0.8pt, opacity=0.7]
+    ($(COHERENCE)+(3.5, 0.65)$) -- ($(COHERENCE)+(3.5, 0.55)$)
+    -- ($(COHERENCE)+(5.0, 0.55)$) -- ($(COHERENCE)+(5.0, 0.65)$);
+\node[text=source1col, font=\tiny] at ($(COHERENCE)+(4.25, 0.40)$) {$\tau_{c,1}$};
+
+\draw[source2col, line width=0.8pt, opacity=0.7]
+    ($(COHERENCE)+(0.5, 0.35)$) -- ($(COHERENCE)+(0.5, 0.25)$)
+    -- ($(COHERENCE)+(1.2, 0.25)$) -- ($(COHERENCE)+(1.2, 0.35)$);
+\node[text=source2col, font=\tiny] at ($(COHERENCE)+(0.85, 0.10)$) {$\tau_{c,2}$};
+
+% ════════════════════════════════════════════════════════
+% 2. FOURIER TRANSFORM ARROW (CENTER)
+% ════════════════════════════════════════════════════════
+\coordinate (FT_CENTER) at (8.0, 4.5);
+
+% Double-headed arrow
+\draw[{Stealth[length=6pt]}-{Stealth[length=6pt]}, line width=1.5pt, labelcol, opacity=0.8]
+    ($(FT_CENTER)+(-1.2, 0)$) -- ($(FT_CENTER)+(1.2, 0)$);
+\node[text=labelcol, font=\small, above=2pt] at ($(FT_CENTER)+(0, 0)$) {$\mathcal{F}$};
+\node[text=labelcol, font=\small, below=2pt] at ($(FT_CENTER)+(0, 0)$) {$\mathcal{F}^{-1}$};
+
+% ════════════════════════════════════════════════════════
+% 3. RIGHT PANEL: S(ν) POWER SPECTRUM
+% ════════════════════════════════════════════════════════
+\coordinate (SPECTRUM) at (13.0, 4.5);
+
+% Axes for right panel
+\draw[arr, axiscol] ($(SPECTRUM)+(0,-0.1)$) -- ($(SPECTRUM)+(5.5,-0.1)$);
+\draw[arr, axiscol] ($(SPECTRUM)+(0,-0.1)$) -- ($(SPECTRUM)+(0, 3.5)$);
+\node[text=axiscol, font=\scriptsize] at ($(SPECTRUM)+(5.7,-0.1)$) {$\nu$};
+\node[text=axiscol, font=\scriptsize, rotate=90] at ($(SPECTRUM)+(-0.35, 1.75)$) {$S(\nu)$};
+\node[text=axiscol, font=\scriptsize] at ($(SPECTRUM)+(0.0,-0.3)$) {$0$};
+
+% Narrow spectrum (cyan) — tall narrow Gaussian peak (small bandwidth)
+% Peak at nu_0, narrow width
+\draw[source1col, line width=2pt]
+    ($(SPECTRUM)+(1.0, 0.8)$)
+    .. controls ($(SPECTRUM)+(1.5, 1.2)$) and ($(SPECTRUM)+(2.0, 1.8)$) ..
+    ($(SPECTRUM)+(2.5, 2.6)$)
+    .. controls ($(SPECTRUM)+(2.75, 3.1)$) and ($(SPECTRUM)+(3.0, 3.35)$) ..
+    ($(SPECTRUM)+(3.25, 3.4)$)
+    .. controls ($(SPECTRUM)+(3.5, 3.35)$) and ($(SPECTRUM)+(3.75, 3.1)$) ..
+    ($(SPECTRUM)+(4.0, 2.6)$)
+    .. controls ($(SPECTRUM)+(4.5, 1.8)$) and ($(SPECTRUM)+(5.0, 1.2)$) ..
+    ($(SPECTRUM)+(5.5, 0.8)$);
+
+% Broad spectrum (orange) — shorter wider Gaussian (large bandwidth)
+\draw[source2col, line width=2pt]
+    ($(SPECTRUM)+(0.3, 1.2)$)
+    .. controls ($(SPECTRUM)+(0.9, 1.6)$) and ($(SPECTRUM)+(1.5, 2.0)$) ..
+    ($(SPECTRUM)+(2.3, 2.4)$)
+    .. controls ($(SPECTRUM)+(2.75, 2.65)$) and ($(SPECTRUM)+(3.25, 2.8)$) ..
+    ($(SPECTRUM)+(3.75, 2.65)$)
+    .. controls ($(SPECTRUM)+(4.5, 2.4)$) and ($(SPECTRUM)+(5.1, 2.0)$) ..
+    ($(SPECTRUM)+(5.5, 1.2)$);
+
+% Bandwidth annotations (FWHM brackets)
+% Narrow spectrum: smaller delta_nu
+\draw[source1col, line width=0.8pt, opacity=0.7]
+    ($(SPECTRUM)+(2.5, 1.55)$) -- ($(SPECTRUM)+(2.5, 1.45)$)
+    -- ($(SPECTRUM)+(4.0, 1.45)$) -- ($(SPECTRUM)+(4.0, 1.55)$);
+\node[text=source1col, font=\tiny] at ($(SPECTRUM)+(3.25, 1.25)$) {$\Delta\nu_1$};
+
+% Broad spectrum: larger delta_nu
+\draw[source2col, line width=0.8pt, opacity=0.7]
+    ($(SPECTRUM)+(0.8, 1.65)$) -- ($(SPECTRUM)+(0.8, 1.55)$)
+    -- ($(SPECTRUM)+(4.7, 1.55)$) -- ($(SPECTRUM)+(4.7, 1.65)$);
+\node[text=source2col, font=\tiny] at ($(SPECTRUM)+(2.75, 1.35)$) {$\Delta\nu_2$};
+
+% ════════════════════════════════════════════════════════
+% 4. CAPTION
+% ════════════════════════════════════════════════════════
+\node[text=labelcol, font=\small, align=center] at (8.0, 0.6)
+    {$g^{(1)}(\tau) \Longleftrightarrow S(\nu)$ \quad Wiener-Khinchin theorem: $\tau_c \sim 1/\Delta\nu$};
+
+\end{tikzpicture}
+\end{document}
